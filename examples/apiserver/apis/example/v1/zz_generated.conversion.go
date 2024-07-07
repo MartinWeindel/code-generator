@@ -108,7 +108,17 @@ func Convert_example_TestType_To_v1_TestType(in *example.TestType, out *TestType
 
 func autoConvert_v1_TestTypeList_To_example_TestTypeList(in *TestTypeList, out *example.TestTypeList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
-	out.Items = *(*[]example.TestType)(unsafe.Pointer(&in.Items))
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
+		*out = make([]example.TestType, len(*in))
+		for i := range *in {
+			if err := Convert_v1_TestType_To_example_TestType(&(*in)[i], &(*out)[i], s); err != nil {
+				return err
+			}
+		}
+	} else {
+		out.Items = nil
+	}
 	return nil
 }
 
@@ -119,7 +129,17 @@ func Convert_v1_TestTypeList_To_example_TestTypeList(in *TestTypeList, out *exam
 
 func autoConvert_example_TestTypeList_To_v1_TestTypeList(in *example.TestTypeList, out *TestTypeList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
-	out.Items = *(*[]TestType)(unsafe.Pointer(&in.Items))
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
+		*out = make([]TestType, len(*in))
+		for i := range *in {
+			if err := Convert_example_TestType_To_v1_TestType(&(*in)[i], &(*out)[i], s); err != nil {
+				return err
+			}
+		}
+	} else {
+		out.Items = nil
+	}
 	return nil
 }
 
@@ -130,7 +150,15 @@ func Convert_example_TestTypeList_To_v1_TestTypeList(in *example.TestTypeList, o
 
 func autoConvert_v1_TestTypeStatus_To_example_TestTypeStatus(in *TestTypeStatus, out *example.TestTypeStatus, s conversion.Scope) error {
 	out.Blah = in.Blah
-	out.Times = (*example.Times)(unsafe.Pointer(in.Times))
+	if in.Times != nil {
+		in, out := &in.Times, &out.Times
+		*out = new(example.Times)
+		if err := Convert_v1_Times_To_example_Times(*in, *out, s); err != nil {
+			return err
+		}
+	} else {
+		out.Times = nil
+	}
 	return nil
 }
 
@@ -141,7 +169,15 @@ func Convert_v1_TestTypeStatus_To_example_TestTypeStatus(in *TestTypeStatus, out
 
 func autoConvert_example_TestTypeStatus_To_v1_TestTypeStatus(in *example.TestTypeStatus, out *TestTypeStatus, s conversion.Scope) error {
 	out.Blah = in.Blah
-	out.Times = (*Times)(unsafe.Pointer(in.Times))
+	if in.Times != nil {
+		in, out := &in.Times, &out.Times
+		*out = new(Times)
+		if err := Convert_example_Times_To_v1_Times(*in, *out, s); err != nil {
+			return err
+		}
+	} else {
+		out.Times = nil
+	}
 	return nil
 }
 
