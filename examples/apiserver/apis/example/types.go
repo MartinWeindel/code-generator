@@ -43,5 +43,11 @@ type TestTypeList struct {
 }
 
 type TestTypeStatus struct {
-	Blah string
+	Blah  string
+	Times *Times
+}
+
+type Times struct {
+	End   *metav1.Time
+	Start *metav1.Time
 }

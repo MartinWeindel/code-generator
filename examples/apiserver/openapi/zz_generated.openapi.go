@@ -87,6 +87,7 @@ func GetOpenAPIDefinitions(ref common.ReferenceCallback) map[string]common.OpenA
 		"k8s.io/code-generator/examples/apiserver/apis/example/v1.TestType":           schema_apiserver_apis_example_v1_TestType(ref),
 		"k8s.io/code-generator/examples/apiserver/apis/example/v1.TestTypeList":       schema_apiserver_apis_example_v1_TestTypeList(ref),
 		"k8s.io/code-generator/examples/apiserver/apis/example/v1.TestTypeStatus":     schema_apiserver_apis_example_v1_TestTypeStatus(ref),
+		"k8s.io/code-generator/examples/apiserver/apis/example/v1.Times":              schema_apiserver_apis_example_v1_Times(ref),
 		"k8s.io/code-generator/examples/apiserver/apis/example2/v1.TestType":          schema_apiserver_apis_example2_v1_TestType(ref),
 		"k8s.io/code-generator/examples/apiserver/apis/example2/v1.TestTypeList":      schema_apiserver_apis_example2_v1_TestTypeList(ref),
 		"k8s.io/code-generator/examples/apiserver/apis/example2/v1.TestTypeStatus":    schema_apiserver_apis_example2_v1_TestTypeStatus(ref),
@@ -2848,10 +2849,41 @@ func schema_apiserver_apis_example_v1_TestTypeStatus(ref common.ReferenceCallbac
 							Format:  "",
 						},
 					},
+					"times": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/code-generator/examples/apiserver/apis/example/v1.Times"),
+						},
+					},
 				},
 				Required: []string{"blah"},
 			},
 		},
+		Dependencies: []string{
+			"k8s.io/code-generator/examples/apiserver/apis/example/v1.Times"},
+	}
+}
+
+func schema_apiserver_apis_example_v1_Times(ref common.ReferenceCallback) common.OpenAPIDefinition {
+	return common.OpenAPIDefinition{
+		Schema: spec.Schema{
+			SchemaProps: spec.SchemaProps{
+				Type: []string{"object"},
+				Properties: map[string]spec.Schema{
+					"start": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+					"end": {
+						SchemaProps: spec.SchemaProps{
+							Ref: ref("k8s.io/apimachinery/pkg/apis/meta/v1.Time"),
+						},
+					},
+				},
+			},
+		},
+		Dependencies: []string{
+			"k8s.io/apimachinery/pkg/apis/meta/v1.Time"},
 	}
 }
 

@@ -43,5 +43,11 @@ type TestTypeList struct {
 }
 
 type TestTypeStatus struct {
-	Blah string `json:"blah"`
+	Blah  string `json:"blah"`
+	Times *Times `json:"times,omitempty"`
+}
+
+type Times struct {
+	Start *metav1.Time `json:"start,omitempty"`
+	End   *metav1.Time `json:"end,omitempty"`
 }
